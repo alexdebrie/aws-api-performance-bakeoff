@@ -1,0 +1,26 @@
+service: apigw-test 
+
+provider:
+  name: aws
+  runtime: python3.7
+  stage: dev
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action: sns:Publish
+      Resource: { Ref: IngestTopic }
+  environment:
+    TOPIC_ARN: { Ref: IngestTopic }
+
+functions:
+  ingest:
+    handler: handler.ingest
+    events:
+      - http:
+          path: ingest
+          method: post
+
+resources:
+  Resources:
+    IngestTopic:
+      Type: AWS::SNS::Topic
