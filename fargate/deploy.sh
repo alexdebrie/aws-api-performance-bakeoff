@@ -36,7 +36,9 @@ fargate service create sns-ingest \
   --env TOPIC_ARN=$TOPIC_ARN \
   --lb flask-lb \
   --port HTTP:80 \
-  --num 5
+  --memory 8192 \
+  --cpu 4096 \
+  --num 50
 
 DNS_NAME=$(fargate lb info flask-lb | grep 'DNS Name' | cut -f 3 -d " ")
 

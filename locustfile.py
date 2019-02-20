@@ -12,5 +12,5 @@ class Root(TaskSet):
 
 class Locust(HttpLocust):
     task_set = Root
-    min_wait = 5000
+    min_wait = 1000
     max_wait = 9000
